@@ -2,8 +2,9 @@
    MYLORRY OPERATIONS PORTAL & PRD - INTERACTIVE APPLICATION LOGIC
    ========================================================================== */
 
-// Layer 1 Normalized Taxonomy & Mock Data
+// Layer 1 Normalized Taxonomy & Mock Data (15 Rich Transactions across all 5 Categories)
 const INITIAL_TRANSACTIONS = [
+  // --- Category 1: AMOUNT_EXCEEDS_THRESHOLD (Volume Exceeds Tank Capacity) ---
   {
     id: "TX-892401",
     timestamp: "2026-09-12 14:22:10",
@@ -26,6 +27,54 @@ const INITIAL_TRANSACTIONS = [
     ]
   },
   {
+    id: "TX-892415",
+    timestamp: "2026-09-12 10:14:05",
+    cardId: "FC-5520",
+    driver: "Amira Hassan",
+    vehicle: "Isuzu D-Max (Reg: WVB-8891)",
+    tankCapacity: "76 Liters",
+    amount: "€165.00",
+    volume: "98.0 Liters",
+    station: "Petronas Kuantan Hub, East Coast",
+    flagCode: "AMOUNT_EXCEEDS_THRESHOLD",
+    flagTitle: "Auxiliary Tank / Over-capacity Dispensed",
+    riskScore: "HIGH (89/100)",
+    status: "UNDER_TRIAGE",
+    assignedTo: "Sarah Jenkins (Ops Lead)",
+    partner: "ExpressFreight Ltd",
+    checklistCrossref: "Checklist logged: Aux 20L tank installed for remote East Coast haulage route.",
+    anomalyDetails: "Layer 1 Ingestion Service normalized flag to AMOUNT_EXCEEDS_THRESHOLD. Dispensed 98.0L exceeds 76L primary tank capacity.",
+    auditTrail: [
+      { timestamp: "2026-09-12 10:14:05", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Flagged volume anomaly 98L vs 76L tank." },
+      { timestamp: "2026-09-12 11:00:20", author: "Sarah Jenkins (Ops)", note: "Assigned for verification of auxiliary tank approval log." }
+    ]
+  },
+  {
+    id: "TX-892422",
+    timestamp: "2026-09-11 16:05:30",
+    cardId: "FC-3390",
+    driver: "Peter Mueller",
+    vehicle: "MAN TGE 3.180 (Reg: M-PM-772)",
+    tankCapacity: "75 Liters",
+    amount: "€152.00",
+    volume: "94.2 Liters",
+    station: "Aral Autohof, Frankfurt West",
+    flagCode: "AMOUNT_EXCEEDS_THRESHOLD",
+    flagTitle: "Dispensed Fuel Volume Exceeds Registered Cap",
+    riskScore: "MEDIUM (74/100)",
+    status: "DISPUTED",
+    assignedTo: "Finance Audit Team",
+    partner: "LogiTrans Group",
+    checklistCrossref: "Checklist logged at 06:00: Main tank 10%. Driver filled aux generator container.",
+    anomalyDetails: "Layer 1 Ingestion Service normalized flag to AMOUNT_EXCEEDS_THRESHOLD. Meter registered 94.2L.",
+    auditTrail: [
+      { timestamp: "2026-09-11 16:05:30", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Normalized flag to AMOUNT_EXCEEDS_THRESHOLD." },
+      { timestamp: "2026-09-11 17:30:00", author: "Marc Dupuis (Ops)", note: "Escalated to Finance for aux fuel receipt verification." }
+    ]
+  },
+
+  // --- Category 2: DUPLICATE_CHARGE (Velocity / Duplicate Swipes) ---
+  {
     id: "TX-892398",
     timestamp: "2026-09-12 13:45:02",
     cardId: "FC-4421",
@@ -41,13 +90,59 @@ const INITIAL_TRANSACTIONS = [
     status: "UNDER_TRIAGE",
     assignedTo: "Sarah Jenkins (Ops Lead)",
     partner: "LogiTrans Group",
-    checklistCrossref: "Checklist OK. Driver logged dual-tank fill.",
+    checklistCrossref: "Checklist OK. Driver logged dual-tank fill across adjacent pumps.",
     anomalyDetails: "Layer 1 Ingestion Service normalized flag to DUPLICATE_CHARGE. Card swiped twice within 4 minutes at adjacent pumps.",
     auditTrail: [
       { timestamp: "2026-09-12 13:45:02", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Normalized flag to DUPLICATE_CHARGE." },
       { timestamp: "2026-09-12 14:00:15", author: "Sarah Jenkins (Ops)", note: "Assigned to self. Contacted fleet dispatcher to confirm dual tank fill." }
     ]
   },
+  {
+    id: "TX-892405",
+    timestamp: "2026-09-12 15:10:40",
+    cardId: "FC-7711",
+    driver: "Chen Wei",
+    vehicle: "Scania R450 (Reg: BKL-9920)",
+    tankCapacity: "450 Liters",
+    amount: "€520.00",
+    volume: "340.0 Liters",
+    station: "Shell Depot, Port Klang Expressway",
+    flagCode: "DUPLICATE_CHARGE",
+    flagTitle: "3 Rapid Swipes Detected in 180 Seconds",
+    riskScore: "HIGH (96/100)",
+    status: "NEW_FLAG",
+    partner: "ExpressFreight Ltd",
+    checklistCrossref: "Checklist: Departure 12:00. Odometer 88,400km.",
+    anomalyDetails: "Layer 1 Ingestion Service normalized flag to DUPLICATE_CHARGE. Card swiped 3 times in 180 seconds totaling €1,040.",
+    auditTrail: [
+      { timestamp: "2026-09-12 15:10:40", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Rapid velocity alert triggered." }
+    ]
+  },
+  {
+    id: "TX-892418",
+    timestamp: "2026-09-10 18:20:12",
+    cardId: "FC-1289",
+    driver: "Mateo Silva",
+    vehicle: "Mercedes Actros (Reg: 4892-LMX)",
+    tankCapacity: "500 Liters",
+    amount: "€320.00",
+    volume: "210.0 Liters",
+    station: "Repsol Truck Stop, Madrid South",
+    flagCode: "DUPLICATE_CHARGE",
+    flagTitle: "Double Card Swipe (Pump Reset Anomaly)",
+    riskScore: "MEDIUM (62/100)",
+    status: "RESOLVED",
+    assignedTo: "Tom Wright (Ops)",
+    partner: "FleetCorp Europe",
+    checklistCrossref: "Driver reported station pump trip. Second swipe completed initial transaction.",
+    anomalyDetails: "Layer 1 Ingestion Service normalized flag to DUPLICATE_CHARGE. Station dispenser timeout caused secondary swipe.",
+    auditTrail: [
+      { timestamp: "2026-09-10 18:20:12", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Flagged DUPLICATE_CHARGE." },
+      { timestamp: "2026-09-10 19:10:05", author: "Tom Wright (Ops)", note: "Confirmed pump error receipt from Repsol. Resolved as valid single fill." }
+    ]
+  },
+
+  // --- Category 3: LOCATION_ANOMALY (Station Location Off Route) ---
   {
     id: "TX-892375",
     timestamp: "2026-09-12 11:10:44",
@@ -72,6 +167,52 @@ const INITIAL_TRANSACTIONS = [
     ]
   },
   {
+    id: "TX-892410",
+    timestamp: "2026-09-12 09:30:15",
+    cardId: "FC-6632",
+    driver: "Harjit Singh",
+    vehicle: "Volvo FM 420 (Reg: JQX-4410)",
+    tankCapacity: "380 Liters",
+    amount: "€410.00",
+    volume: "275.0 Liters",
+    station: "BHPetrol Off-Highway, Ipoh Detour",
+    flagCode: "LOCATION_ANOMALY",
+    flagTitle: "Off-Route Fuel Swipe (>100km Variance)",
+    riskScore: "HIGH (84/100)",
+    status: "NEW_FLAG",
+    partner: "FleetCorp Europe",
+    checklistCrossref: "Checklist: Route KL to Penang. Station was 120km off North-South Highway.",
+    anomalyDetails: "Layer 1 Ingestion Service normalized flag to LOCATION_ANOMALY. Transaction station GPS is 120km outside authorized corridor.",
+    auditTrail: [
+      { timestamp: "2026-09-12 09:30:15", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Geofence variance alert triggered." }
+    ]
+  },
+  {
+    id: "TX-892425",
+    timestamp: "2026-09-11 22:15:00",
+    cardId: "FC-8801",
+    driver: "Lucas Meyer",
+    vehicle: "DAF XF 530 (Reg: B-LM-902)",
+    tankCapacity: "500 Liters",
+    amount: "€580.00",
+    volume: "390.0 Liters",
+    station: "Shell Cross-Border, Wasserbillig Luxembourg",
+    flagCode: "LOCATION_ANOMALY",
+    flagTitle: "Unapproved Cross-Border Fuel Swipe",
+    riskScore: "HIGH (82/100)",
+    status: "UNDER_TRIAGE",
+    assignedTo: "Sarah Jenkins (Ops Lead)",
+    partner: "LogiTrans Group",
+    checklistCrossref: "Checklist: Domestic DE route assigned. Driver crossed Luxembourg border for fuel discount.",
+    anomalyDetails: "Layer 1 Ingestion Service normalized flag to LOCATION_ANOMALY. Country code mismatch vs assigned route domain.",
+    auditTrail: [
+      { timestamp: "2026-09-11 22:15:00", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Cross-border location anomaly flagged." },
+      { timestamp: "2026-09-12 08:10:00", author: "Sarah Jenkins (Ops)", note: "Reviewing fleet manager authorization note." }
+    ]
+  },
+
+  // --- Category 4: DRIVER_DISPUTE (Driver Disputed Charge) ---
+  {
     id: "TX-892350",
     timestamp: "2026-09-12 03:15:20",
     cardId: "FC-8831",
@@ -88,12 +229,58 @@ const INITIAL_TRANSACTIONS = [
     assignedTo: "Sarah Jenkins (Ops Lead)",
     partner: "FleetCorp Europe",
     checklistCrossref: "Night shift dispatch log approved by Fleet Mgr Hans Gruber.",
-    anomalyDetails: "Layer 1 Ingestion Service normalized flag to DRIVER_DISPUTE. Swipe amount €620.00 exceeds €500 threshold.",
+    anomalyDetails: "Layer 1 Ingestion Service normalized flag to DRIVER_DISPUTE. Driver disputed €620.00 charge stating pump dispensed 30L less than billed.",
     auditTrail: [
       { timestamp: "2026-09-12 03:15:20", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Normalized flag to DRIVER_DISPUTE." },
       { timestamp: "2026-09-12 08:30:12", author: "Sarah Jenkins (Ops)", note: "Verified night route dispatch log. Submitted for triage review." }
     ]
   },
+  {
+    id: "TX-892408",
+    timestamp: "2026-09-12 12:40:55",
+    cardId: "FC-2291",
+    driver: "Suresh Kumar",
+    vehicle: "Isuzu Giga (Reg: VAA-3301)",
+    tankCapacity: "400 Liters",
+    amount: "€430.00",
+    volume: "290.0 Liters",
+    station: "Caltex Highway Hub, Rawang",
+    flagCode: "DRIVER_DISPUTE",
+    flagTitle: "Driver Claimed Pump Meter Miscalibration",
+    riskScore: "HIGH (76/100)",
+    status: "NEW_FLAG",
+    partner: "ExpressFreight Ltd",
+    checklistCrossref: "Driver uploaded picture of station pump meter showing 260.0L vs 290.0L billed receipt.",
+    anomalyDetails: "Layer 1 Ingestion Service normalized flag to DRIVER_DISPUTE. Billed volume (290L) exceeds pump screen display (260L) per driver mobile report.",
+    auditTrail: [
+      { timestamp: "2026-09-12 12:40:55", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Driver dispute ticket linked from mobile portal." }
+    ]
+  },
+  {
+    id: "TX-892430",
+    timestamp: "2026-09-11 14:15:10",
+    cardId: "FC-5402",
+    driver: "Antoine Dubois",
+    vehicle: "Renault T-Truck (Reg: FF-991-AB)",
+    tankCapacity: "420 Liters",
+    amount: "€495.00",
+    volume: "330.0 Liters",
+    station: "TotalEnergies, Lille East",
+    flagCode: "DRIVER_DISPUTE",
+    flagTitle: "Driver Disputed Unrecognized Card Swipe",
+    riskScore: "HIGH (81/100)",
+    status: "DISPUTED",
+    assignedTo: "Finance Audit Team",
+    partner: "LogiTrans Group",
+    checklistCrossref: "Driver states card was in truck cab while swipe occurred at Station Pump #4.",
+    anomalyDetails: "Layer 1 Ingestion Service normalized flag to DRIVER_DISPUTE. Card cloning or unauthorized third-party swipe suspected by driver.",
+    auditTrail: [
+      { timestamp: "2026-09-11 14:15:10", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Flagged DRIVER_DISPUTE." },
+      { timestamp: "2026-09-11 15:00:00", author: "Marc Dupuis (Ops)", note: "Escalated to Finance & CCTV audit." }
+    ]
+  },
+
+  // --- Category 5: UNKNOWN_LEGACY (Legacy Flag Input Fallback) ---
   {
     id: "TX-892312",
     timestamp: "2026-09-11 19:40:00",
@@ -105,7 +292,7 @@ const INITIAL_TRANSACTIONS = [
     volume: "360.0 Liters",
     station: "Esso Truck Stop, Dover",
     flagCode: "UNKNOWN_LEGACY",
-    flagTitle: "Legacy Flag Input (Unspecified)",
+    flagTitle: "Legacy Flag Input (Unspecified Code ERR_FLAG_99)",
     riskScore: "MEDIUM (60/100)",
     status: "DISMISS",
     assignedTo: "Tom Wright (Ops)",
@@ -115,6 +302,49 @@ const INITIAL_TRANSACTIONS = [
     auditTrail: [
       { timestamp: "2026-09-11 19:40:00", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Flagged UNKNOWN_LEGACY fallback." },
       { timestamp: "2026-09-11 20:15:40", author: "Tom Wright (Ops)", note: "Confirmed typo on mobile pre-trip checklist. Dismissed as false positive." }
+    ]
+  },
+  {
+    id: "TX-892412",
+    timestamp: "2026-09-12 08:05:18",
+    cardId: "FC-9011",
+    driver: "Nurul Aini",
+    vehicle: "Hino 500 (Reg: WB-7712)",
+    tankCapacity: "200 Liters",
+    amount: "€210.00",
+    volume: "145.0 Liters",
+    station: "Shell Station, Johor Bahru South",
+    flagCode: "UNKNOWN_LEGACY",
+    flagTitle: "Legacy Raw Code: FLAG_SYS_OLD_V2",
+    riskScore: "MEDIUM (55/100)",
+    status: "NEW_FLAG",
+    partner: "ExpressFreight Ltd",
+    checklistCrossref: "Checklist logged: Pre-trip OK. Odometer 112,000km.",
+    anomalyDetails: "Layer 1 Ingestion Service assigned UNKNOWN_LEGACY. Raw input payload: 'FLAG_SYS_OLD_V2: ODOMETER_RANGE_EXCEEDED'. Requires human verification.",
+    auditTrail: [
+      { timestamp: "2026-09-12 08:05:18", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Mapped raw code to UNKNOWN_LEGACY fallback." }
+    ]
+  },
+  {
+    id: "TX-892428",
+    timestamp: "2026-09-11 11:20:40",
+    cardId: "FC-4490",
+    driver: "Carlos Gomez",
+    vehicle: "Iveco Stralis (Reg: 3910-KKB)",
+    tankCapacity: "400 Liters",
+    amount: "€460.00",
+    volume: "305.0 Liters",
+    station: "BP Station, Zaragoza",
+    flagCode: "UNKNOWN_LEGACY",
+    flagTitle: "Unmapped Legacy Terminal Event",
+    riskScore: "MEDIUM (58/100)",
+    status: "UNDER_TRIAGE",
+    assignedTo: "Sarah Jenkins (Ops Lead)",
+    partner: "FleetCorp Europe",
+    checklistCrossref: "Checklist: Departure OK.",
+    anomalyDetails: "Layer 1 Ingestion Service assigned UNKNOWN_LEGACY. Terminal sent unmapped code 'SYS_ERR_CARD_POS_VAR'.",
+    auditTrail: [
+      { timestamp: "2026-09-11 11:20:40", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Assigned UNKNOWN_LEGACY fallback." }
     ]
   }
 ];
