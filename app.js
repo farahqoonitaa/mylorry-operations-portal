@@ -20,6 +20,7 @@ const INITIAL_TRANSACTIONS = [
     riskScore: "HIGH (92/100)",
     status: "NEW_FLAG",
     partner: "FleetCorp Europe",
+    rawLegacyPayload: "RAW_SYS_EVENT_OVERFILL: DISPENSED_88.5L > REGISTERED_CAP_70L [ERR_CODE_104]",
     checklistCrossref: "Pre-trip checklist (2026-09-12 07:00): Tank 15%, Odometer 142,300km. Max expected: 62L.",
     anomalyDetails: "Layer 1 Ingestion Service normalized flag to AMOUNT_EXCEEDS_THRESHOLD. Dispensed volume 88.5L exceeds registered 70L tank (+26.4% variance). Secondary container or vehicle suspected.",
     auditTrail: [
@@ -42,6 +43,7 @@ const INITIAL_TRANSACTIONS = [
     status: "UNDER_TRIAGE",
     assignedTo: "Sarah Jenkins (Ops Lead)",
     partner: "ExpressFreight Ltd",
+    rawLegacyPayload: "RAW_SYS_EVENT_AUX_FILL: DISPENSED_98.0L > PRIMARY_CAP_76L [ERR_CODE_109]",
     checklistCrossref: "Checklist logged: Aux 20L tank installed for remote East Coast haulage route.",
     anomalyDetails: "Layer 1 Ingestion Service normalized flag to AMOUNT_EXCEEDS_THRESHOLD. Dispensed 98.0L exceeds 76L primary tank capacity.",
     auditTrail: [
@@ -65,6 +67,7 @@ const INITIAL_TRANSACTIONS = [
     status: "DISPUTED",
     assignedTo: "Finance Audit Team",
     partner: "LogiTrans Group",
+    rawLegacyPayload: "RAW_SYS_EVENT_CAP_EXCEED: DISPENSED_94.2L > CAP_75L [ERR_CODE_101]",
     checklistCrossref: "Checklist logged at 06:00: Main tank 10%. Driver filled aux generator container.",
     anomalyDetails: "Layer 1 Ingestion Service normalized flag to AMOUNT_EXCEEDS_THRESHOLD. Meter registered 94.2L.",
     auditTrail: [
@@ -90,6 +93,7 @@ const INITIAL_TRANSACTIONS = [
     status: "UNDER_TRIAGE",
     assignedTo: "Sarah Jenkins (Ops Lead)",
     partner: "LogiTrans Group",
+    rawLegacyPayload: "RAW_CARD_SWIPE_VELOCITY: 2_SWIPES_240s_PUMP_3_AND_4 [ERR_CODE_202]",
     checklistCrossref: "Checklist OK. Driver logged dual-tank fill across adjacent pumps.",
     anomalyDetails: "Layer 1 Ingestion Service normalized flag to DUPLICATE_CHARGE. Card swiped twice within 4 minutes at adjacent pumps.",
     auditTrail: [
@@ -112,6 +116,7 @@ const INITIAL_TRANSACTIONS = [
     riskScore: "HIGH (96/100)",
     status: "NEW_FLAG",
     partner: "ExpressFreight Ltd",
+    rawLegacyPayload: "RAW_CARD_SWIPE_VELOCITY: 3_SWIPES_180s_SAME_CARD [ERR_CODE_209]",
     checklistCrossref: "Checklist: Departure 12:00. Odometer 88,400km.",
     anomalyDetails: "Layer 1 Ingestion Service normalized flag to DUPLICATE_CHARGE. Card swiped 3 times in 180 seconds totaling €1,040.",
     auditTrail: [
@@ -134,6 +139,7 @@ const INITIAL_TRANSACTIONS = [
     status: "RESOLVED",
     assignedTo: "Tom Wright (Ops)",
     partner: "FleetCorp Europe",
+    rawLegacyPayload: "RAW_CARD_SWIPE_DUPLICATE: PUMP_RESET_RETRY_SWIPE [ERR_CODE_204]",
     checklistCrossref: "Driver reported station pump trip. Second swipe completed initial transaction.",
     anomalyDetails: "Layer 1 Ingestion Service normalized flag to DUPLICATE_CHARGE. Station dispenser timeout caused secondary swipe.",
     auditTrail: [
@@ -159,6 +165,7 @@ const INITIAL_TRANSACTIONS = [
     status: "DISPUTED",
     assignedTo: "Finance Audit Team",
     partner: "ExpressFreight Ltd",
+    rawLegacyPayload: "RAW_GPS_GEO_VARIANCE: DISTANCE_OFF_ROUTE_45KM [ERR_CODE_301]",
     checklistCrossref: "Driver route assigned: Lyon Central Hub to Marseille. Station was 45km off-route.",
     anomalyDetails: "Layer 1 Ingestion Service normalized flag to LOCATION_ANOMALY. Transaction GPS station coordinates do not match route geo-fence.",
     auditTrail: [
@@ -181,6 +188,7 @@ const INITIAL_TRANSACTIONS = [
     riskScore: "HIGH (84/100)",
     status: "NEW_FLAG",
     partner: "FleetCorp Europe",
+    rawLegacyPayload: "RAW_GPS_GEO_VARIANCE: DISTANCE_OFF_ROUTE_120KM [ERR_CODE_308]",
     checklistCrossref: "Checklist: Route KL to Penang. Station was 120km off North-South Highway.",
     anomalyDetails: "Layer 1 Ingestion Service normalized flag to LOCATION_ANOMALY. Transaction station GPS is 120km outside authorized corridor.",
     auditTrail: [
@@ -203,6 +211,7 @@ const INITIAL_TRANSACTIONS = [
     status: "UNDER_TRIAGE",
     assignedTo: "Sarah Jenkins (Ops Lead)",
     partner: "LogiTrans Group",
+    rawLegacyPayload: "RAW_GPS_CROSS_BORDER: DE_TO_LUX_BORDER_SWIPE [ERR_CODE_315]",
     checklistCrossref: "Checklist: Domestic DE route assigned. Driver crossed Luxembourg border for fuel discount.",
     anomalyDetails: "Layer 1 Ingestion Service normalized flag to LOCATION_ANOMALY. Country code mismatch vs assigned route domain.",
     auditTrail: [
@@ -228,6 +237,7 @@ const INITIAL_TRANSACTIONS = [
     status: "UNDER_TRIAGE",
     assignedTo: "Sarah Jenkins (Ops Lead)",
     partner: "FleetCorp Europe",
+    rawLegacyPayload: "RAW_DRIVER_DISPUTE_CLAIM: PUMP_METER_VARIANCE_DISPUTED [ERR_CODE_401]",
     checklistCrossref: "Night shift dispatch log approved by Fleet Mgr Hans Gruber.",
     anomalyDetails: "Layer 1 Ingestion Service normalized flag to DRIVER_DISPUTE. Driver disputed €620.00 charge stating pump dispensed 30L less than billed.",
     auditTrail: [
@@ -250,6 +260,7 @@ const INITIAL_TRANSACTIONS = [
     riskScore: "HIGH (76/100)",
     status: "NEW_FLAG",
     partner: "ExpressFreight Ltd",
+    rawLegacyPayload: "RAW_DRIVER_DISPUTE_CLAIM: RECEIPT_290L_VS_SCREEN_260L [ERR_CODE_405]",
     checklistCrossref: "Driver uploaded picture of station pump meter showing 260.0L vs 290.0L billed receipt.",
     anomalyDetails: "Layer 1 Ingestion Service normalized flag to DRIVER_DISPUTE. Billed volume (290L) exceeds pump screen display (260L) per driver mobile report.",
     auditTrail: [
@@ -272,6 +283,7 @@ const INITIAL_TRANSACTIONS = [
     status: "DISPUTED",
     assignedTo: "Finance Audit Team",
     partner: "LogiTrans Group",
+    rawLegacyPayload: "RAW_DRIVER_DISPUTE_CLAIM: UNRECOGNIZED_SWIPE_PUMP_4 [ERR_CODE_412]",
     checklistCrossref: "Driver states card was in truck cab while swipe occurred at Station Pump #4.",
     anomalyDetails: "Layer 1 Ingestion Service normalized flag to DRIVER_DISPUTE. Card cloning or unauthorized third-party swipe suspected by driver.",
     auditTrail: [
@@ -297,6 +309,7 @@ const INITIAL_TRANSACTIONS = [
     status: "DISMISS",
     assignedTo: "Tom Wright (Ops)",
     partner: "LogiTrans Group",
+    rawLegacyPayload: "RAW_LEGACY_UNMAPPED: ERR_FLAG_99_ODOMETER_RANGE [ERR_CODE_999]",
     checklistCrossref: "Driver entered 420,000km instead of 450,000km due to typo.",
     anomalyDetails: "Layer 1 Ingestion Service assigned UNKNOWN_LEGACY fallback. Raw legacy code payload preserved without breaking pipeline.",
     auditTrail: [
@@ -319,6 +332,7 @@ const INITIAL_TRANSACTIONS = [
     riskScore: "MEDIUM (55/100)",
     status: "NEW_FLAG",
     partner: "ExpressFreight Ltd",
+    rawLegacyPayload: "RAW_LEGACY_UNMAPPED: FLAG_SYS_OLD_V2_PAYLOAD [ERR_CODE_998]",
     checklistCrossref: "Checklist logged: Pre-trip OK. Odometer 112,000km.",
     anomalyDetails: "Layer 1 Ingestion Service assigned UNKNOWN_LEGACY. Raw input payload: 'FLAG_SYS_OLD_V2: ODOMETER_RANGE_EXCEEDED'. Requires human verification.",
     auditTrail: [
@@ -341,6 +355,7 @@ const INITIAL_TRANSACTIONS = [
     status: "UNDER_TRIAGE",
     assignedTo: "Sarah Jenkins (Ops Lead)",
     partner: "FleetCorp Europe",
+    rawLegacyPayload: "RAW_LEGACY_UNMAPPED: SYS_ERR_CARD_POS_VAR [ERR_CODE_997]",
     checklistCrossref: "Checklist: Departure OK.",
     anomalyDetails: "Layer 1 Ingestion Service assigned UNKNOWN_LEGACY. Terminal sent unmapped code 'SYS_ERR_CARD_POS_VAR'.",
     auditTrail: [
@@ -575,9 +590,16 @@ function openDrawer(txId) {
   document.getElementById("drawer-partner").textContent = tx.partner;
   document.getElementById("drawer-risk-score").textContent = tx.riskScore;
   
-  let anomalyText = `<strong>Layer 1 Normalized Reason: ${tx.flagCode}</strong><br>${tx.anomalyDetails}`;
+  let anomalyText = `
+    <div style="font-size:0.85rem; line-height:1.5;">
+      <div style="font-weight:800; color:var(--text-primary); margin-bottom:4px;">🔍 Layer 1 Normalization Reasoning Engine:</div>
+      <div style="margin-bottom:2px;"><strong>Raw Legacy Input:</strong> <code style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-size:0.775rem; color:#475569;">${tx.rawLegacyPayload || 'RAW_SYS_EVENT_UNMAPPED'}</code></div>
+      <div style="margin-bottom:4px;"><strong>Mapped Taxonomy Rule:</strong> <span class="flag-chip">${tx.flagCode}</span></div>
+      <div><strong>Diagnostic Reasoning:</strong> ${tx.anomalyDetails}</div>
+    </div>
+  `;
   if (currentScenario === "SCENARIO_2" && parseFloat(tx.amount.replace('€','')) > 500) {
-    anomalyText += `<br><span style="color:#7e22ce; font-weight:700;">⚖️ Maker-Checker Rule: Case >€500 requires Supervisor secondary approval before resolution.</span>`;
+    anomalyText += `<div style="margin-top:8px; padding:6px 10px; background:#faf5ff; border:1px solid #e9d5ff; border-radius:6px; color:#7e22ce; font-weight:700; font-size:0.8rem;">⚖️ Compliance Rule: Case >€500 requires Supervisor secondary approval before resolution.</div>`;
   }
   document.getElementById("drawer-anomaly-box").innerHTML = anomalyText;
 
