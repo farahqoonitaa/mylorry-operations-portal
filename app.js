@@ -383,6 +383,52 @@ const INITIAL_TRANSACTIONS = [
     auditTrail: [
       { timestamp: "2026-09-12 16:12:00", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Preserved unmapped raw payload as UNKNOWN_LEGACY fallback." }
     ]
+  },
+  {
+    id: "TX-892460",
+    timestamp: "2026-09-12 17:04:15",
+    cardId: "FC-9918",
+    driver: "Lars Lindqvist",
+    vehicle: "Scania S650 (Reg: SE-981-XX)",
+    tankCapacity: "600 Liters",
+    amount: "€690.00",
+    volume: "460.0 Liters",
+    station: "Circle K Depot, Gothenburg Port",
+    flagCode: "UNKNOWN_LEGACY",
+    flagTitle: "Unmapped Vendor CANBUS Payload (XB29)",
+    riskScore: "HIGH (87/100)",
+    status: "UNDER_TRIAGE",
+    assignedTo: "Sarah Jenkins (Ops Lead)",
+    partner: "FleetCorp Europe",
+    rawLegacyPayload: "RAW_UNMAPPED_SIGNAL: VENDOR_XB29_RAW_CANBUS_BYTE [ERR_CODE_995]",
+    checklistCrossref: "Driver uploaded CANBUS diagnostic stream following high-volume fuel swipe.",
+    anomalyDetails: "Layer 1 Ingestion Service captured raw vendor CANBUS payload 'VENDOR_XB29'. Assigned UNKNOWN_LEGACY fallback while awaiting Day 1 taxonomy parser release.",
+    auditTrail: [
+      { timestamp: "2026-09-12 17:04:15", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Captured unmapped CANBUS telemetry payload." },
+      { timestamp: "2026-09-12 17:30:00", author: "Sarah Jenkins (Ops)", note: "Opened ticket for Engineering taxonomy mapping squad." }
+    ]
+  },
+  {
+    id: "TX-892465",
+    timestamp: "2026-09-12 18:25:50",
+    cardId: "FC-1102",
+    driver: "Hannah Arendt",
+    vehicle: "Mercedes Actros (Reg: K-HA-441)",
+    tankCapacity: "500 Liters",
+    amount: "€585.00",
+    volume: "390.0 Liters",
+    station: "Eni Station, Milan Freight Hub",
+    flagCode: "UNKNOWN_LEGACY",
+    flagTitle: "Unparsed Modbus Telemetry Signal (0xFF12)",
+    riskScore: "HIGH (82/100)",
+    status: "NEW_FLAG",
+    partner: "ExpressFreight Ltd",
+    rawLegacyPayload: "RAW_UNMAPPED_SIGNAL: UNPARSED_MODBUS_TELEMETRY_0xFF12 [ERR_CODE_994]",
+    checklistCrossref: "Checklist: Cross-border delivery Milan to Munich.",
+    anomalyDetails: "Layer 1 Ingestion Service received legacy Modbus binary signal 0xFF12. Preserved in UNKNOWN_LEGACY fallback queue with zero data loss.",
+    auditTrail: [
+      { timestamp: "2026-09-12 18:25:50", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Stored raw Modbus telemetry payload." }
+    ]
   }
 ];
 
