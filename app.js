@@ -361,6 +361,28 @@ const INITIAL_TRANSACTIONS = [
     auditTrail: [
       { timestamp: "2026-09-11 11:20:40", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Assigned UNKNOWN_LEGACY fallback." }
     ]
+  },
+  {
+    id: "TX-892440",
+    timestamp: "2026-09-12 16:12:00",
+    cardId: "FC-8819",
+    driver: "Viktor Krum",
+    vehicle: "Volvo FH 500 (Reg: B-VK-881)",
+    tankCapacity: "450 Liters",
+    amount: "€510.00",
+    volume: "340.0 Liters",
+    station: "Shell Depot, Hamburg Harbour",
+    flagCode: "UNKNOWN_LEGACY",
+    flagTitle: "Raw Unmapped Terminal Hex Signal (0x4A99F)",
+    riskScore: "HIGH (85/100)",
+    status: "NEW_FLAG",
+    partner: "LogiTrans Group",
+    rawLegacyPayload: "RAW_UNMAPPED_SIGNAL: 0x4A99F_POS_TERMINAL_HEX [ERR_CODE_996]",
+    checklistCrossref: "Checklist logged at 15:30: Pre-trip OK. Route Hamburg to Berlin.",
+    anomalyDetails: "Layer 1 Ingestion Service received unclassified raw POS terminal signal '0x4A99F'. Mapped to UNKNOWN_LEGACY fallback so no records are lost. Pending Day 1 Engineering taxonomy mapping.",
+    auditTrail: [
+      { timestamp: "2026-09-12 16:12:00", author: "SYSTEM (Layer 1 Ingestion Engine)", note: "Preserved unmapped raw payload as UNKNOWN_LEGACY fallback." }
+    ]
   }
 ];
 
@@ -598,6 +620,12 @@ function openDrawer(txId) {
       <div><strong>Diagnostic Reasoning:</strong> ${tx.anomalyDetails}</div>
     </div>
   `;
+  if (tx.flagCode === "UNKNOWN_LEGACY") {
+    anomalyText += `<div style="margin-top:8px; padding:8px 12px; background:#fffbeb; border:1px solid #fde68a; border-radius:6px; color:#b45309; font-size:0.8rem; line-height:1.4;">
+      <strong>⚠️ UNMAPPED RAW LEGACY INPUT (PRE-TAXONOMY):</strong><br>
+      This raw legacy signal has not been assigned a normalized taxonomy rule yet. Layer 1 Ingestion preserves it as an <code>UNKNOWN_LEGACY</code> fallback so zero incoming records are dropped. Pending Day 1 Engineering taxonomy mapping.
+    </div>`;
+  }
   if (currentScenario === "SCENARIO_2" && parseFloat(tx.amount.replace('€','')) > 500) {
     anomalyText += `<div style="margin-top:8px; padding:6px 10px; background:#faf5ff; border:1px solid #e9d5ff; border-radius:6px; color:#7e22ce; font-weight:700; font-size:0.8rem;">⚖️ Compliance Rule: Case >€500 requires Supervisor secondary approval before resolution.</div>`;
   }
